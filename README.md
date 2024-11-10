@@ -56,3 +56,7 @@ Join our community of developers creating universal apps.
 - [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
 
 # netshow.me
+
+![Screenshot 1](https://raw.githubusercontent.com/lucasgferreira/netshow.me/refs/heads/main/docs/Simulator%20Screenshot%20-%20iPhone%2016%20-%202024-11-10%20at%2020.49.00.png)
+![Screenshot 2](https://raw.githubusercontent.com/lucasgferreira/netshow.me/refs/heads/main/docs/Simulator%20Screenshot%20-%20iPhone%2016%20-%202024-11-10%20at%2020.49.09.png)
+![Screenshot 3](https://raw.githubusercontent.com/lucasgferreira/netshow.me/refs/heads/main/docs/Simulator%20Screenshot%20-%20iPhone%2016%20-%202024-11-10%20at%2020.49.16.png)
