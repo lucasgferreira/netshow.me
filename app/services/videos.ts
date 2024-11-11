@@ -15,6 +15,20 @@ function useVideos() {
     });
   }
 
+  async function patchVideo(id: number, payload: any): Promise<any> {
+    return new Promise(async (resolve, reject) => {
+      try {
+        let response = await api.patch(`videos/${id}`, payload);
+
+        setTimeout(() => {
+          resolve(response.data);
+        }, 1000); // Altere o valor para ajustar o tempo de atraso
+      } catch (error) {
+        reject(error);
+      }
+    });
+  }
+
   async function getVideos(
     page: number = 1,
     perPage: number = 10
@@ -58,6 +72,7 @@ function useVideos() {
     getVideos,
     getVideo,
     getVideosCategory,
+    patchVideo,
   };
 }
 

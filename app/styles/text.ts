@@ -1,6 +1,5 @@
-import styled from "styled-components/native";
-import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import { Dimensions } from "react-native";
+import styled from "styled-components/native";
 
 const screenHeight = Dimensions.get("window").height;
 

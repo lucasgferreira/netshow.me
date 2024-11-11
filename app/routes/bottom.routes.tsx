@@ -34,23 +34,8 @@ const style = {
 
 function Main({ route }: any) {
   const navigation = useNavigation();
-  // const route = useRoute();
 
   const { colors } = useTheme();
-
-  // useEffect(() => {
-  //   const onesignalToken: any = Config.ONESIGNAL_TOKEN;
-
-  //   OneSignal.setAppId(onesignalToken);
-
-  //   OneSignal.setNotificationOpenedHandler(notification => {
-  //     const {screen, params} = notification.notification.additionalData;
-  //     // alert(JSON.stringify(params));
-  //     if (screen) {
-  //       navigation.dispatch(CommonActions.navigate(screen, params));
-  //     }
-  //   });
-  // }, []);
 
   return (
     <Tab.Navigator

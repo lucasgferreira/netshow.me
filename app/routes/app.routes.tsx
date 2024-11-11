@@ -32,12 +32,6 @@ type Props = {
 function Main({ initialRouteName }: Props) {
   const navigation = useNavigation();
 
-  // const {codigo_ze} = route?.params || {};
-
-  // useEffect(() => {
-  //   alert(JSON.stringify(codigo_ze));
-  // }, [route]);
-
   return (
     <Stack.Navigator>
       <Stack.Screen

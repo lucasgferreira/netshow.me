@@ -16,73 +16,7 @@ import Providers from "@/app/contexts";
 import Routes from "@/app/routes";
 import { light } from "@/app/styles/themes";
 
-// if (__DEV__) {
-//   // require("./config/ReactotronConfig");
-// }
-
-// const DEEP_LINKING_URL = Config.DEEP_LINKING_URL;
-// const DEEP_LINKING_SCHEME = Config.DEEP_LINKING_SCHEME;
-// const configuration = Config.CONFIGURATION;
-
 const App = () => {
-  // LogBox.ignoreAllLogs();
-
-  // npx uri-scheme open app-vendedor.dev.mercadinhodoze.com.br://app --ios
-  // adb shell am start -W -a android.intent.action.VIEW -d "app-vendedor.dev.mercadinhodoze.com.br://app/pedidos/685" com.mercadinhodoze.dev
-  // https://app-vendedor.dev.mercadinhodoze.com.br/app/
-
-  const config = {
-    screens: {
-      path: "app",
-
-      BottomRoutes: {
-        screens: {
-          // Stacks dentro do arquivo orders.routes.tsx
-          OrdersRoutes: {
-            screens: {
-              OrdersDetails: "pedidos",
-            },
-          },
-          HomeRoutes: {
-            screens: {
-              Home: "",
-              // npx uri-scheme open app-vendedor.dev.mercadinhodoze.com.br://app/notificacoes --ios
-              Notifications: "notificacoes",
-            },
-          },
-          PerfilRoutes: {
-            screens: {
-              // npx uri-scheme open app-vendedor.dev.mercadinhodoze.com.br://app/perfil/perguntas_frequentes --ios
-              FAQ: "perfil/perguntas_frequentes",
-            },
-          },
-          CatalogRoutes: {
-            screens: {
-              // npx uri-scheme open app-vendedor.dev.mercadinhodoze.com.br://app/promocoes/12 --ios
-              PromotionProducts: "promocoes/:promotion_id",
-              // npx uri-scheme open app-vendedor.dev.mercadinhodoze.com.br://app/crm/clientes/416 --ios
-              ListCustomersDetails: "crm/clientes/:cliente_id",
-            },
-          },
-        },
-      },
-
-      // Stacks dentro do arquivo app.routes.tsx
-
-      // npx uri-scheme open app-vendedor.dev.mercadinhodoze.com.br://app/pedidos/685 --ios
-      OrdersDetails: "pedidos/:venda_id",
-      // npx uri-scheme open app-vendedor.dev.mercadinhodoze.com.br://app/pedidos/novos --ios
-      NegociateRoutes: "pedidos/novos",
-
-      // Adicione outras telas de notificação aqui, se houver
-    },
-  };
-
-  // const linking = {
-  //   prefixes: [`${DEEP_LINKING_URL}/app/`, `${DEEP_LINKING_SCHEME}://app/`],
-  //   config,
-  // };
-
   const navigationRef = useRef();
 
   const errorHandler = (error: Error, stackTrace: string) => {
@@ -150,7 +84,4 @@ const App = () => {
   );
 };
 
-// let codePushOptions = {checkFrequency: codePush.CheckFrequency.ON_APP_RESUME};
-
-// export default codePush(codePushOptions)(App);
 export default App;

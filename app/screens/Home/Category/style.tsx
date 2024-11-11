@@ -23,6 +23,7 @@ export const Chip = styled.TouchableOpacity`
   border-radius: 10px;
   background-color: rgba(220, 220, 220, 0.4);
   margin-horizontal: 5px;
+  justify-content: center;
 `;
 
 export const ChipTitle = styled.Text`

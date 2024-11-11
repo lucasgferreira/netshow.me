@@ -8,9 +8,7 @@ interface Props {
 }
 
 const Main: React.FC<Props> = ({ text }) => {
-  useEffect(() => {
-    //alert(JSON.stringify(props));
-  }, []);
+  useEffect(() => {}, []);
 
   return (
     <Container>

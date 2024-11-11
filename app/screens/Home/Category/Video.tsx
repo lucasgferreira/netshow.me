@@ -6,24 +6,33 @@ import {
   StyleSheet,
   ScrollView,
   RefreshControl,
+  TouchableOpacity,
+  ActivityIndicator,
 } from "react-native";
 import { Video } from "expo-av";
 import { useVideos } from "@/app/services/videos";
 import MessageDisplayWrapper from "@/app/Utils/MessageDisplayWrapper";
-import { Content, Row, Title } from "./style";
+import { Chip, Content, Row, Title } from "./style";
 import ContentLoader, { Rect } from "react-content-loader/native";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import AntDesign from "@expo/vector-icons/AntDesign";
+import { TextBold } from "@/app/styles/text";
+import { useTheme } from "@react-navigation/native";
 
 export default function VideoScreen({ route }: any) {
+  const { colors } = useTheme();
+
   const data = route?.params?.video || {};
 
   const videoRef = useRef(null);
   const [status, setStatus] = useState({});
   const [loading, setLoading] = useState(false);
+  const [loadingAvaliation, setLoadingAvaliation] = useState(false);
   const [error, setError] = useState(null);
   const [video, setVideo] = useState(null);
-  const { getVideo } = useVideos();
+  const [hasBeenViewed, setHasBeenViewed] = useState(false);
+
+  const { getVideo, patchVideo } = useVideos();
 
   useEffect(() => {
     fetchVideo();
@@ -42,6 +51,43 @@ export default function VideoScreen({ route }: any) {
       setError(error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const updateViews = async (status) => {
+    if (status.isPlaying && !hasBeenViewed) {
+      setHasBeenViewed(true);
+      try {
+        const views = video?.views + 1;
+        const response = await patchVideo(data.id, { views });
+
+        if (response) {
+          setVideo({ ...video, views });
+        }
+      } catch (error) {
+        console.error("Erro ao carregar sites:", error);
+        setError(error);
+      } finally {
+      }
+    }
+  };
+
+  const updateLikes = async (likes = 0) => {
+    if (likes < 0) {
+      return;
+    }
+    setLoadingAvaliation(true);
+    try {
+      const response = await patchVideo(data.id, { likes });
+
+      if (response) {
+        setVideo(response);
+      }
+    } catch (error) {
+      console.error("Erro ao carregar sites:", error);
+      setError(error);
+    } finally {
+      setLoadingAvaliation(false);
     }
   };
 
@@ -94,25 +140,38 @@ export default function VideoScreen({ route }: any) {
           }}
           useNativeControls
           resizeMode="contain"
-          onPlaybackStatusUpdate={setStatus}
+          onPlaybackStatusUpdate={updateViews}
         />
 
-        <Row style={{ justifyContent: "flex-start", marginVertical: 10 }}>
+        <Row style={{ marginVertical: 10 }}>
           <Row>
-            <MaterialCommunityIcons name="eye" color={"#555"} size={16} />
+            <MaterialCommunityIcons name="eye" color={"#555"} size={20} />
 
-            <Text style={{ fontSize: 12, marginLeft: 5 }}>
-              {video?.views} Visualizações
+            <Text style={{ fontSize: 16, marginLeft: 5 }}>
+              <TextBold style={{ fontSize: 16 }}>{video?.views}</TextBold>{" "}
+              Visualizações
             </Text>
           </Row>
 
-          <Row>
-            <AntDesign name="like1" color={"#555"} size={16} />
+          <Chip style={{ height: 40, width: 120 }}>
+            {loadingAvaliation ? (
+              <ActivityIndicator size="small" color={colors.primary} />
+            ) : (
+              <Row>
+                <TouchableOpacity onPress={() => updateLikes(video?.likes + 1)}>
+                  <AntDesign name="like1" color={"#555"} size={24} />
+                </TouchableOpacity>
 
-            <Text style={{ fontSize: 12, marginLeft: 5 }}>
-              {video?.likes} Marcações como "Gostei"
-            </Text>
-          </Row>
+                <TextBold style={{ fontSize: 18, marginHorizontal: 10 }}>
+                  {video?.likes}
+                </TextBold>
+
+                <TouchableOpacity onPress={() => updateLikes(video?.likes - 1)}>
+                  <AntDesign name="dislike1" color={"#555"} size={24} />
+                </TouchableOpacity>
+              </Row>
+            )}
+          </Chip>
         </Row>
 
         <Content>
